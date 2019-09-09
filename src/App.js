@@ -38,7 +38,7 @@ class App extends Component {
       messages,
       input: ''
     })
-    const response = await Interactions.send("BookTripMOBILEHUB", input);
+    const response = await Interactions.send("OrderPizza", input);
     const responseMessage = new Message({
       id: 1,
       message: response.message,
@@ -47,9 +47,9 @@ class App extends Component {
     this.setState({ messages })
 
     if (response.dialogState === 'Fulfilled') {
-      if (response.intentName === 'BookTripBookHotel') {
-        const { slots: { BookTripCheckInDate, BookTripLocation, BookTripNights, BookTripRoomType } } = response
-        const finalMessage = `Congratulations! Your trip to ${BookTripLocation}  with a ${BookTripRoomType} rooom on ${BookTripCheckInDate} for ${BookTripNights} days has been booked!!`
+      if (response.intentName === 'orderPizza') {
+        const { slots: { Size, Toppings } } = response
+        const finalMessage = `Congratulations! Your Pizza ${Size}  with the following Toppings ${Toppings} has meeting!!`
         this.setState({ finalMessage })
       }
     }
